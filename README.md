@@ -1,10 +1,3 @@
-Dưới đây là **README hoàn chỉnh (1 khối duy nhất)** — viết cho repo `HIS-BVCHORAY-LECTURE56-REQUIREMENTS`,
-đã có đầy đủ **ảnh screenshot**, **file SQL**, **file Word**, và **thông tin sinh viên Nguyễn Đỗ Tú Mai – N23DCPT091**.
-👉 Bạn chỉ cần **copy toàn bộ khối bên dưới và dán vào README.md trên GitHub** là xong.
-
----
-
-```markdown
 # 💊 HỆ THỐNG QUẢN LÝ KHÁM CHỮA BỆNH – HIS CHỢ RẪY  
 **Nguyễn Đỗ Tú Mai – N23DCPT091**  
 Môn học: *Nhập môn Công nghệ Phần mềm – Lecture 5&6: Requirements Analysis*
@@ -33,7 +26,114 @@ Môn học: *Nhập môn Công nghệ Phần mềm – Lecture 5&6: Requirements
 - Tự động hóa quy trình và giảm tải khâu hành chính.
 
 **Schema:** `his_choray`  
-**Số bảng:** 8 bảng chính + các đối tượng mở rộng (thuyết |
+**Số bảng:** 8 bảng chính + các đối tượng mở rộng (trigger, views, seed, meta).
+
+---
+
+## 🧱 2. Cấu trúc cơ sở dữ liệu
+
+| STT | Tên bảng | Mô tả |
+|-----|-----------|-------|
+| 1 | `benhnhan` | Thông tin bệnh nhân |
+| 2 | `bacsi` | Thông tin bác sĩ |
+| 3 | `lichhen` | Lịch hẹn khám bệnh |
+| 4 | `hosobenhan` | Hồ sơ bệnh án (EMR) |
+| 5 | `xetnghiem` | Kết quả xét nghiệm |
+| 6 | `donthuoc` | Đơn thuốc bác sĩ kê |
+| 7 | `thuoc` | Kho thuốc, danh mục thuốc |
+| 8 | `hoadon` | Viện phí, thanh toán & bảo hiểm |
+
+**Quan hệ chính:**  
+- BN ↔ Lịch hẹn / Hồ sơ bệnh án / Hóa đơn  
+- BS ↔ Hồ sơ bệnh án / Đơn thuốc / Lịch hẹn  
+- HSBA ↔ Xét nghiệm / Đơn thuốc  
+- Đơn thuốc ↔ Thuốc  
+
+---
+
+## 🧩 3. Các thành phần mở rộng
+- **Triggers:** Tự động cập nhật trạng thái khi thêm/sửa dữ liệu.  
+- **Views:** Tổng hợp dữ liệu giữa các bảng liên quan.  
+- **Checks:** Đảm bảo ràng buộc logic khi nhập liệu.  
+- **Seed:** Chèn dữ liệu mẫu để test hệ thống.  
+- **Queries:** Tổng hợp các câu truy vấn JOIN và kiểm tra FK.
+
+---
+
+## 🧠 4. Câu hỏi củng cố lý thuyết (Trắc nghiệm / Tình huống / Use Case)
+- File: [`NGUYỄN ĐỖ TÚ MAI-N23DCPT091-LECTURE5.docx`](NGUYỄN%20ĐỖ%20TÚ%20MAI-N23DCPT091-LECTURE5.docx)  
+- Bao gồm:  
+  - 10 câu **trắc nghiệm** về yêu cầu phần mềm  
+  - 10 câu **trả lời ngắn**  
+  - 10 câu **tình huống thực tế** theo bài giảng thầy cung cấp.  
+
+---
+
+## 📸 5. Minh chứng thao tác MySQL Workbench
+
+**Ảnh ERD – tổng thể từ Workbench:**  
+![ERD từ file MWB](ERD_HIS_from_SQL.png)
+
+**Ảnh cấu trúc sơ đồ Workbench (.mwb):**  
+[`ERD_HIS_from_SQL.mwb`](ERD_HIS_from_SQL.mwb)
+
+**Ảnh giao diện chạy lệnh – Workbench (thực thi script):**  
+![Ảnh chạy script tổng hợp](screenshot_invoice_total.png)  
+![Ảnh kiểm tra Lab Submission](screenshot_labsubmission.png)
+
+---
+
+## 🧾 6. Hướng dẫn thực thi nhanh
+
+1. Mở **MySQL Workbench** → *File → Open SQL Script* → chọn `his_schema_choray.sql`.  
+2. Bấm **Execute All (tia sét)** để chạy toàn bộ.  
+3. Thực thi lần lượt các file bổ sung:
+```
+
+his_seed.sql
+his_triggers.sql
+his_views.sql
+his_checks.sql
+his_queries.sql
+
+````
+4. Kiểm tra:
+```sql
+SHOW TABLES;
+SELECT * FROM benhnhan LIMIT 5;
+SELECT * FROM hosobenhan LIMIT 5;
+````
+
+---
+
+## 📂 7. Cấu trúc repo
+
+```
+HIS-BVCHORAY-LECTURE56-REQUIREMENTS/
+│
+├── ERD_HIS_from_SQL.mwb
+├── ERD_HIS_from_SQL.png
+├── N23DCPT091_NguyenDoTuMai_HIS_Lab.zip
+├── NGUYỄN ĐỖ TÚ MAI-N23DCPT091-LECTURE5.docx
+├── his_NGUYEN DO TU MAI_meta_N23DCPT091.sql
+├── his_schema_choray.sql
+├── his_seed.sql
+├── his_triggers.sql
+├── his_views.sql
+├── his_checks.sql
+├── his_queries.sql
+├── screenshot_invoice_total.png
+├── screenshot_labsubmission.png
+└── README.md
+```
+
+---
+
+## 👩‍💻 8. Thông tin sinh viên
+
+| Họ và tên            | MSSV           | Lớp      | Ghi chú                                                                    |
+| -------------------- | -------------- | -------- | -------------------------------------------------------------------------- |
+| **Nguyễn Đỗ Tú Mai** | **N23DCPT091** | D23CQPTTK01-N| Hoàn thành bài thực hành Lecture 5–6 – Requirements Analysis (HIS Chợ Rẫy) và bài tập củng cố lí thuyết |
 
 ---
 
